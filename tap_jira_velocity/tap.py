@@ -7,20 +7,20 @@ import click
 from singer_sdk import Tap, Stream
 from singer_sdk import typing as th
 
-from tap_template.streams import (
+from tap_jira_velocity.streams import (
     Events,
 )
 
-PLUGIN_NAME = "tap-template"
+PLUGIN_NAME = "tap-jira-velocity"
 
-STREAM_TYPES = [ 
+STREAM_TYPES = [
     Events,
 ]
 
 class TapTemplate(Tap):
     """template tap class."""
 
-    name = "tap-template"
+    name = "tap-jira-velocity"
     config_jsonschema = th.PropertiesList(
         th.Property("url_base", th.StringType, required=False, description="Url base for the source endpoint"),
         th.Property("api_key", th.StringType, required=False, description="API key"),

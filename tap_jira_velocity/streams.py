@@ -1,4 +1,4 @@
-"""Stream class for tap-template."""
+"""Stream class for tap-jira-velocity."""
 
 import base64
 import json
@@ -16,12 +16,12 @@ SCHEMAS_DIR = Path(__file__).parent / Path("./schemas")
 
 class TapTemplateStream(RESTStream):
     """Template stream class."""
-    
+
     _LOG_REQUEST_METRIC_URLS: bool = True
     @property
     def url_base(self) -> str:
         """Base URL of source"""
-        return f"https://api.datadoghq.com"
+        return f"https://degreedjira.atlassian.net"
 
     @property
     def http_headers(self) -> dict:
@@ -48,12 +48,12 @@ class TapTemplateStream(RESTStream):
         return SimpleAuthenticator(stream=self, auth_headers=http_headers)
 
 class Events(TapTemplateStream):
-    name = "events" # Stream name 
-    path = "/api/v2/logs/events/search" # API endpoint after base_url 
+    name = "events" # Stream name
+    path = "/api/v2/logs/events/search" # API endpoint after base_url
     primary_keys = ["id"]
-    records_jsonpath = "$.data[*]" # https://jsonpath.com Use requests response json to identify the json path 
+    records_jsonpath = "$.data[*]" # https://jsonpath.com Use requests response json to identify the json path
     replication_key = None
-    #schema_filepath = SCHEMAS_DIR / "events.json"  # Optional: use schema_filepath with .json inside schemas/ 
+    #schema_filepath = SCHEMAS_DIR / "events.json"  # Optional: use schema_filepath with .json inside schemas/
 
     # Optional: If using schema_filepath, remove the propertyList schema method below
     schema = th.PropertiesList(
@@ -70,7 +70,7 @@ class Events(TapTemplateStream):
         payload = {"filter": {"query": "source:degreed.api env:production","from": self.config.get("start_date")},"page": {"limit": 4}}
         return payload
 
-    # For passing url parameters: 
+    # For passing url parameters:
     # def get_url_params(
     #     self, context: Optional[dict], next_page_token: Optional[Any]
     # ) -> Dict[str, Any]:
@@ -80,7 +80,7 @@ class Events(TapTemplateStream):
 
 
 
-### Template to use for new stream 
+### Template to use for new stream
 # class TemplateStream(RESTStream):
 #     """Template stream class."""
 

@@ -1,24 +1,24 @@
-# `tap-template`
+# `tap-jira-velocity`
 This tap template was created by Degreed as a template to be used for extracting data via Meltano into defined targets
 
 
-## tap-template
+## tap-jira-velocity
 
 These are the steps required for using this repo as a 'template' for a Meltano extractor. Note: we will use tap-datadog as the example throughout the process.
 
 1.  Being aware of case sensitivity, replace the following throughout the repo:
 
-* `tap-template` >`tap-datadog` 
-* `tap_template` > `tap_datadog`
+* `tap-jira-velocity` >`tap-datadog`
+* `tap_jira_velocity` > `tap_datadog`
 * `TapTemplateStream` > `TapDatadogStream` (inside `streams.py`)
 
 2. Update the following folders/files to:
-* `tap_template` > `tap_datadog`
-* `tap-template.sh` > `tap-datadog.sh`
+* `tap_jira_velocity` > `tap_datadog`
+* `tap-jira-velocity.sh` > `tap-datadog.sh`
 
 3. Inside `streams.py` update TapTemplateStream with the authentication used for the tap-datadog api calls.  Note: all streams in streams.py work as a heirarchy further down. i.e. you can replace the http headers in another stream
 
-4. Using `Events(TapTemplateStream)` as an example, build your first stream to be synced. There are comments to help identify what values to use 
+4. Using `Events(TapTemplateStream)` as an example, build your first stream to be synced. There are comments to help identify what values to use
 
 For setting the `records_jsonpath` value in the stream, you can use a tool likle postman to make a sample call and view the response json.  After identifying what keys and values you need to extract, you will need to narrow down the json path. This is a helpful site that you can paste the response text in and help locate the correct path to use.  In this example, we want to only extract the `id` and `type` values inside `data`:
 
@@ -85,7 +85,7 @@ For the schema, you can create the .json file and place it in the schemas/ folde
 }
 ```
 
-- **Option 2:** Defining schema using hte PropertiesList in the stream `class`: 
+- **Option 2:** Defining schema using hte PropertiesList in the stream `class`:
 ```python
 schema = th.PropertiesList(
         th.Property("id", th.NumberType),
@@ -116,21 +116,21 @@ Install poetry for the package
 poetry install
 ```
 
-To confirm everything is setup properly, run the following: 
+To confirm everything is setup properly, run the following:
 ```bash
-poetry run tap-template --help
+poetry run tap-jira-velocity --help
 ```
 
-To run the tap locally outside of Meltano and view the response in a text file, run the following: 
+To run the tap locally outside of Meltano and view the response in a text file, run the following:
 ```bash
-poetry run tap-template > output.txt 
+poetry run tap-jira-velocity > output.txt
 ```
 
-A full list of supported settings and capabilities is available by running: `tap-template --about`
+A full list of supported settings and capabilities is available by running: `tap-jira-velocity --about`
 
 ## Config Guide
 
-To test locally, create a `config.json` with required config values in your tap_template folder (i.e. `tap_template/config.json`)
+To test locally, create a `config.json` with required config values in your tap_jira_velocity folder (i.e. `tap_jira_velocity/config.json`)
 
 ```json
 {
@@ -140,10 +140,10 @@ To test locally, create a `config.json` with required config values in your tap_
 }
 ```
 
-**note**: It is critical that you delete the config.json before pushing to github.  You do not want to expose an api key or token 
-### Add to Meltano 
+**note**: It is critical that you delete the config.json before pushing to github.  You do not want to expose an api key or token
+### Add to Meltano
 
-The provided `meltano.yml` provides the correct setup for the tap to be installed in the data-houston repo.  
+The provided `meltano.yml` provides the correct setup for the tap to be installed in the data-houston repo.
 
 At this point you should move all your updated tap files into its own tap-datadog github repo. You also want to make sure you update in the `setup.py` the `url` of the repo for you tap.
 
@@ -174,5 +174,5 @@ To test in data-houston, run the following:
 That should be it! Feel free to contribute to the tap to help add functionality for any future sources
 ## Singer SDK Dev Guide
 
-See the [dev guide](https://sdk.meltano.com/en/latest/index.html) for more instructions on how to use the Singer SDK to 
+See the [dev guide](https://sdk.meltano.com/en/latest/index.html) for more instructions on how to use the Singer SDK to
 develop your own taps and targets.

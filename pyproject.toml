@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "tap-template"
+name = "tap-jira-velocity"
 version = "0.0.1"
-description = "`tap-template` is Singer-compliant template tap built with Singer SDK."
+description = "`tap-jira-velocity` is Singer-compliant template tap built with Singer SDK."
 authors = ["Derek Visch <dvisch@autoidm.com>"]
 license = "Apache v2"
 
@@ -26,7 +26,7 @@ viztracer = "^0.15.4"
 [tool.isort]
 profile = "black"
 multi_line_output = 3 # Vertical Hanging Indent
-src_paths = "tap_template"
+src_paths = "tap_jira_velocity"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -34,4 +34,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 # CLI declaration
-tap-template = 'tap_template.tap:cli'
+tap-jira-velocity = 'tap_jira_velocity.tap:cli'

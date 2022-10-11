@@ -3,18 +3,19 @@ send_anonymous_usage_stats: true
 project_id: 4935d052-aee1-46fa-89f0-a94cdc080064
 plugins:
   extractors:
-  - name: tap-template
-    namespace: tap_template
-    executable: ./tap-template.sh
+  - name: tap-jira-velocity
+    namespace: tap_jira_velocity
+    executable: ./tap-jira-velocity.sh
     capabilities:
     - state
     - catalog
     - discover
     config:
-      api_key: API-KEY
-      app_key: APP-KEY
-      start_date: '2022-10-05T00:00:00Z'
-  
+      username: $TAP_JIRA_USERNAME
+      password: $TAP_JIRA_PASSWORD
+      base_url: https://degreedjira.atlassian.net
+      start_date: '2021-01-01'
+
   loaders:
   - name: target-jsonl
     variant: andyh1203
@@ -24,4 +25,4 @@ environments:
   config:
     plugins:
       extractors:
-      - name: tap-template
+      - name: tap-jira-velocity
